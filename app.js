@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
-const {writeFile, copyFile} = require('./utils/generate-site.js');
-const generatePage = require('./src/page-template');
+const { writeFile, copyFile } = require("./utils/generate-site.js");
+const generatePage = require("./src/page-template");
 
 // const pageHTML = generatePage(name, github);
 
@@ -49,13 +49,13 @@ const promptUser = () => {
       type: "input",
       name: "about",
       message: "Provide some information about yourself:",
-      when: ({confirmAbout}) => {
+      when: ({ confirmAbout }) => {
         if (confirmAbout) {
           return true;
         } else {
           return false;
         }
-      }
+      },
     },
   ]);
 };
@@ -150,21 +150,19 @@ const promptProject = (portfolioData) => {
 
 promptUser()
   .then(promptProject)
-  .then(portfolioData => {
+  .then((portfolioData) => {
     return generatePage(portfolioData);
   })
-  .then(pageHTML => {
+  .then((pageHTML) => {
     return writeFile(pageHTML);
   })
-  .then(writeFileResponse => {
+  .then((writeFileResponse) => {
     console.log(writeFileResponse);
     return copyFile();
   })
-  .then(copyFileResponse => {
+  .then((copyFileResponse) => {
     console.log(copyFileResponse);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
- 
-
